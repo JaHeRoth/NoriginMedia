@@ -20,19 +20,19 @@ public class ExampleUnitTest {
 	/** Asserts that Reader.java doesn't crash */
 	@Test
     public void readerClassRuns() throws Exception {
-        new Reader().readHTML("");
+        new Reader().fetchFromURLString("");
     }
 	
 	/** Asserts that Reader.java manages to read something (no exceptions are thrown and caught)  */
 	@Test
 	public void readerClassReadsSomething() throws Exception {
-		assertNotEquals(new Reader().readHTML("http://localhost:1337/epg"), null);
+		assertNotEquals(new Reader().fetchFromURLString("http://localhost:1337/epg"), null);
 	}
 	
-	/** Asserts that Reader.java returns correct html from EPG */
+	/** Asserts that Reader.java returns correct content from EPG */
 	@Test
 	public void readerClassReadsEPGCorrectly() throws Exception {
-		assertEquals(new Reader().readHTML("http://localhost:1337/epg"), localRead("epg.txt"));
+		assertEquals(new Reader().fetchFromURLString("http://localhost:1337/epg"), localRead("epg.txt"));
 	}
 	
 	private String localRead(String filename) throws IOException {

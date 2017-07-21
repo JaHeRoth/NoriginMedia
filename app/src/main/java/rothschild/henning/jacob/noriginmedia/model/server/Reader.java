@@ -8,26 +8,26 @@ import java.net.URL;
 
 /**
  * Created by Jacob Rothschild on 08.10.2016.
- * Object used for fetching the html of a webpage.
+ * Object used for fetching content from a webpage or server, by taking a url-string, and returning a content-string.
  * Could have been made static, but Dependency Injection is preferred for cleaner project structure.
  */
 public class Reader {
 	
 	private static final String TAG = Reader.class.getSimpleName() + ".";
 
-	/** @return The full HTML, in one, large String */
-	public String readHTML(String urlString) {
+	/** @return All the content behind 'urlString', in one, large String */
+	public String fetchFromURLString(String urlString) {
 		try {
-			return urlStringToHTML(urlString);
+			return urlStringToContentString(urlString);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	/** @throws Exception All methods called by this method re-throw their exceptions upward. Thus, this method will throw a MalformedUTLException or IOException, if anything, anywhere goes wrong between url-string (input) and html-string (output) */
-	private String urlStringToHTML(String urlString) throws Exception {
-		return urlToHTML(stringToURL(urlString));
+	/** @throws Exception All methods called by this method re-throw their exceptions upward. Thus, this method will throw a MalformedUTLException or IOException, if anything, anywhere goes wrong between url-string (input) and content-string (output) */
+	private String urlStringToContentString(String urlString) throws Exception {
+		return urlToContentString(stringToURL(urlString));
 	}
 	
 	/** @return A URL-object created from 'urlString' */
@@ -35,27 +35,27 @@ public class Reader {
 		return new URL(urlString);
 	}
 
-	/** @return If possible, the whole HTML behind 'url', in one, large String */
-	private String urlToHTML(URL url) throws IOException {
+	/** @return If possible, all content behind 'url', in one, large String */
+	private String urlToContentString(URL url) throws IOException {
 		BufferedReader reader = urlToBufferedReader(url);
-		String output = bufferedReaderToHTML(reader);
+		String output = bufferedReaderToContentString(reader);
 		reader.close();
 		return output;
 	}
 	
-	/** @return A BufferedReader for fetching the HTML of 'url' */
+	/** @return A BufferedReader for fetching the content of 'url' */
 	private BufferedReader urlToBufferedReader(URL url) throws IOException {
 		// Settings "UTF-8" is necessary to read "æøå". This is NOT reproducible in normal java, but it is in GAE
 		return new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 	}
 	
 	/** @return A long String made by all the contents of 'reader' */
-	private String bufferedReaderToHTML(BufferedReader reader) throws IOException {
-		return bufferedReaderToStringBuilder(reader).toString();
+	private String bufferedReaderToContentString(BufferedReader reader) throws IOException {
+		return bufferedReaderToContentStringBuilder(reader).toString();
 	}
 	
 	/** @return A StringBuilder made up of all the contents of 'reader' */
-	private StringBuilder bufferedReaderToStringBuilder(BufferedReader reader) throws IOException {
+	private StringBuilder bufferedReaderToContentStringBuilder(BufferedReader reader) throws IOException {
 		StringBuilder stringBuilder = new StringBuilder();
 		String line;
 		while ((line = reader.readLine()) != null) stringBuilder.append(line);
