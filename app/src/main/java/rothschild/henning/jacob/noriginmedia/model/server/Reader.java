@@ -11,12 +11,12 @@ import java.net.URL;
  * Object used for fetching the html of a webpage.
  * Could have been made static, but Dependency Injection is preferred for cleaner project structure.
  */
-class Reader {
+public class Reader {
 	
 	private static final String TAG = Reader.class.getSimpleName() + ".";
 
 	/** @return The full HTML, in one, large String */
-	String readHTML(String urlString) {
+	public String readHTML(String urlString) {
 		try {
 			return urlStringToHTML(urlString);
 		} catch (Exception e) {
