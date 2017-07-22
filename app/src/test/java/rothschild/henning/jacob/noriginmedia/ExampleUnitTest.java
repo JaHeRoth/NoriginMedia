@@ -5,11 +5,7 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import rothschild.henning.jacob.noriginmedia.model.server.Reader;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import java.io.Reader;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
