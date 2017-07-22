@@ -16,6 +16,11 @@ import java.io.IOException;
 
 public class Fetcher {
 	
+	// As this functions as a top-class of model, I feel it is ok to call static functions from here, instead of using dependency injection from our controller.
+	
+	// FIXME: Remote data is not stored (cached) locally
+	// FIXME: Missing comparison functionality to assure remote content is new, before giving it to dumb UI
+	
 	// NOTE: For this example, filename will always be "epg"
 	public static JSONObject local(Context context, String filename) throws JSONException, IOException {
 		return fetch(BufferedReaderCreator.localReader(context, filename));

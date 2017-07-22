@@ -1,42 +1,30 @@
 package rothschild.henning.jacob.noriginmedia;
 
+import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
+
+import rothschild.henning.jacob.noriginmedia.model.Fetcher;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * Integration tests.
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
-	private final String urlString = "http://localhost:1337/epg";
+public class IntegrationTest {
+	private final static String FILENAME = "epg.txt";
+	private final static String URL_STRING = "http://localhost:1337/epg";
 	
-	/** Asserts that Reader.java doesn't crash */
+	/** Asserts that Fetcher.Remote(...) returns correct content from EPG */
 	@Test
-    public void readerClassRuns() throws Exception {
-        new Reader().fetchFromURLString(urlString);
-    }
-	
-	/** Asserts that no exceptions are thrown and caught inside Reader.java */
-	@Test
-	public void readerClassReadsEffortlessly() throws Exception {
-		assertNotEquals(new Reader().fetchFromURLString(urlString), null);
-	}
-	
-	/** Asserts that Reader.java manages to read something (returns more than an empty string)  */
-	@Test
-	public void readerClassReadsSomething() throws Exception {
-		assertNotEquals(new Reader().fetchFromURLString(urlString), "");
-	}
-	
-	/** Asserts that Reader.java returns correct content from EPG */
-	@Test
-	public void readerClassReadsEPGCorrectly() throws Exception {
-		assertEquals(new Reader().fetchFromURLString(urlString), localRead("epg.txt"));
+	public void fetchRemote() throws Exception {
+		// NOTE: .toString() must be called. It seems like otherwise == is called
+		assertEquals(Fetcher.remote(URL_STRING).toString(), new JSONObject(localRead(FILENAME)).toString());
 	}
 	
 	private String localRead(String filename) throws IOException {
