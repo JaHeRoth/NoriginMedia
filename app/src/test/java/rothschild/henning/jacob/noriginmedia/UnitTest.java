@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import rothschild.henning.jacob.noriginmedia.model.BufferedReaderCreator;
 import rothschild.henning.jacob.noriginmedia.model.JSONFetcher;
 
 import static junit.framework.Assert.assertEquals;
@@ -36,6 +37,13 @@ public class UnitTest {
 		JSONObject origin = JSONFetcher.fromBufferedReader(filenameToBufferedReader(FILENAME));
 		JSONObject comparison = new JSONObject(localRead(FILENAME));
 		assertEquals("\n" + origin.toString() + "\n" + comparison.toString() + "\n", origin.toString(), comparison.toString());
+	}
+	
+	/** Asserts that BufferedReaderCreator.remoteReader(...) returns a working BufferedReader.
+	 * When server is off, this should fail. */
+	@Test
+	public void remoteReader() throws Exception {
+		assertEquals(bufferedReaderToContentString(BufferedReaderCreator.remoteReader(URL_STRING)), localRead(FILENAME));
 	}
 	
 	private String localRead(String filename) throws IOException {
