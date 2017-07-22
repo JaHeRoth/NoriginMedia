@@ -25,7 +25,7 @@ public class ExampleUnitTest {
         new Reader().fetchFromURLString(urlString);
     }
 	
-	/** Asserts that Reader.java manages to read something (no exceptions are thrown and caught)  */
+	/** Asserts that no exceptions are thrown and caught inside Reader.java */
 	@Test
 	public void readerClassReadsEffortlessly() throws Exception {
 		assertNotEquals(new Reader().fetchFromURLString(urlString), null);
