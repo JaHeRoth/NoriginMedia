@@ -33,9 +33,4 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 	public CharSequence getPageTitle(int position) {
 		return "SECTION " + (position + 1);
 	}
-	
-	public boolean isTouchesAllowed(int position) {
-		// If touches are allowed in the tab with epg the ViewPager will overpower the epg, making it unscrollable. Otherwise, we enjoy the ViewPager-scroll
-		return position != 2;
-	}
 }
