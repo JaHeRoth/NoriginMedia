@@ -28,6 +28,6 @@ public class InstrumentedIntegrationTest {
         // Context of the app under test.
         Context context = InstrumentationRegistry.getTargetContext();
         // NOTE: .toString() must be called. It seems like '==' is called otherwise
-        assertEquals(Fetcher.local(context, TestResourceReader.EPG_LOCAL).toString(), testEPGReader.jsonRead().toString());
+        assertEquals(testEPGReader.jsonRead().toString(), Fetcher.local(context, TestResourceReader.EPG_LOCAL).toString());
     }
 }

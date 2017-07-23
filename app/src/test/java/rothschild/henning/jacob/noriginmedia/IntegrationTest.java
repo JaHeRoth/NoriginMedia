@@ -19,6 +19,6 @@ public class IntegrationTest {
 	@Test
 	public void fetchRemote() throws Exception {
 		// NOTE: .toString() must be called. It seems like otherwise == is called
-		assertEquals(Fetcher.remote(TestResourceReader.EPG_REMOTE).toString(), testEPGReader.jsonRead().toString());
+		assertEquals(testEPGReader.jsonRead().toString(), Fetcher.remote(TestResourceReader.EPG_REMOTE).toString());
 	}
 }

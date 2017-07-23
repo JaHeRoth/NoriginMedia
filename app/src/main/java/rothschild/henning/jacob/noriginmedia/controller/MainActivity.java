@@ -10,26 +10,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import rothschild.henning.jacob.epg.EPG;
 import rothschild.henning.jacob.epg.EPGClickListener;
 import rothschild.henning.jacob.epg.EPGData;
 import rothschild.henning.jacob.epg.domain.EPGChannel;
 import rothschild.henning.jacob.epg.domain.EPGEvent;
-import rothschild.henning.jacob.epg.misc.EPGDataImpl;
-import rothschild.henning.jacob.epg.misc.MockDataService;
 import rothschild.henning.jacob.noriginmedia.R;
 import rothschild.henning.jacob.noriginmedia.SharedConstants;
+import rothschild.henning.jacob.noriginmedia.model.EPGDataCreator;
 
 public class MainActivity extends AppCompatActivity {
 	
 	// TODO: Update epg-view regularly, to represent that the time is constantly changing (right now the visual current-time-indicator is stuck until restart)
 	
+	private static final String TAG = MainActivity.class.getSimpleName() + ".";
 	private static final String EPG_FILE_LOCAL = "epg.txt";
 	// 10.0.3.2 is localhost's IP address in Genymotion emulator (10.0.2.2 in Android emulator)
 	private static final String EPG_FILE_REMOTE = "http://10.0.3.2:1337/epg"; // localhost
 	private static final String EPG_BROADCAST_LOCAL = "EPG_BROADCAST_LOCAL";
 	private static final String EPG_BROADCAST_REMOTE = "EPG_BROADCAST_REMOTE";
-	private static final String TAG = MainActivity.class.getSimpleName() + ".";
+	private final static String EPG_INPUT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
 	
 	private EPG epg;
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -92,7 +95,12 @@ public class MainActivity extends AppCompatActivity {
 		Log.d(TAG + "..ReceivedBroadcast", String.valueOf(intent.getIntExtra(SharedConstants.CODE_BUNDLE_KEY, SharedConstants.FAILED_CODE)));
 		Log.d(TAG + "..ReceivedBroadcast", intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY));
 		// TODO: Check for identical, handle fail, write to storage, store in variable-cache
-		setAndRedrawEPGData(new EPGDataCreator.fromJSONString(intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY)));
+		try {
+			setAndRedrawEPGData(EPGDataCreator.fromJSONString(intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY), new SimpleDateFormat(EPG_INPUT_DATE_FORMAT, Locale.UK)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			// I'm not a big fan of these general exception catchers...
+		}
 	}
 	
 	private void setAndRedrawEPGData(EPGData data) {

@@ -27,6 +27,6 @@ public class InstrumentedUnitTest {
     public void localReader() throws Exception {
         // Context of the app under test.
         Context context = InstrumentationRegistry.getTargetContext();
-        assertEquals(testEPGReader.bufferedReaderToContentString(ReaderCreator.localReader(context, TestResourceReader.EPG_LOCAL)), testEPGReader.stringRead());
+        assertEquals(testEPGReader.stringRead(), testEPGReader.bufferedReaderToContentString(ReaderCreator.localReader(context, TestResourceReader.EPG_LOCAL)));
     }
 }
