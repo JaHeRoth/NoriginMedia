@@ -17,8 +17,8 @@ import rothschild.henning.jacob.epg.domain.EPGChannel;
 import rothschild.henning.jacob.epg.domain.EPGEvent;
 import rothschild.henning.jacob.epg.misc.EPGDataImpl;
 import rothschild.henning.jacob.epg.misc.MockDataService;
-import rothschild.henning.jacob.noriginmedia.SharedConstants;
 import rothschild.henning.jacob.noriginmedia.R;
+import rothschild.henning.jacob.noriginmedia.SharedConstants;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -32,14 +32,17 @@ public class MainActivity extends AppCompatActivity {
 	private static final String TAG = MainActivity.class.getSimpleName() + ".";
 	
 	private EPG epg;
-	private BroadcastReceiver localReceiver;
-	private BroadcastReceiver remoteReceiver;
+	private BroadcastReceiver receiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			handleReceivedBroadcast(intent);
+		}
+	};
 	
 	@Override
 	protected void onDestroy() {
 		if (epg != null) epg.clearEPGImageCache();
-		LocalBroadcastManager.getInstance(this).unregisterReceiver(localReceiver);
-		LocalBroadcastManager.getInstance(this).unregisterReceiver(remoteReceiver);
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
 		super.onDestroy();
 	}
 	
@@ -76,38 +79,23 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private void fetchEPGData() {
-		registerLocalBroadcastReceiverForEpgLocal();
-		registerLocalBroadcastReceiverForEpgRemote();
-		new AsyncReader(getApplicationContext(), EPG_BROADCAST_LOCAL, true, EPG_FILE_LOCAL).execute();
-		new AsyncReader(getApplicationContext(), EPG_BROADCAST_REMOTE, false, EPG_FILE_REMOTE).execute();
+		fetchData(EPG_BROADCAST_LOCAL, LocationType.LOCAL, EPG_FILE_LOCAL);
+		fetchData(EPG_BROADCAST_REMOTE, LocationType.REMOTE, EPG_FILE_REMOTE);
 	}
 	
-	private void registerLocalBroadcastReceiverForEpgLocal() {
-		localReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				Log.d(TAG + "..EpgLocal", intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY));
-				// TODO: Use the received string, after having model convert it
-				setEPGData(new EPGDataImpl(MockDataService.getMockData()));
-			}
-		};
-		LocalBroadcastManager.getInstance(this).registerReceiver(localReceiver, new IntentFilter(EPG_BROADCAST_LOCAL));
+	private void fetchData(String broadcastKey, LocationType locationType, String contentLocation) {
+		LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(broadcastKey));
+		new AsyncReader(getApplicationContext(), broadcastKey, locationType, contentLocation).execute();
 	}
 	
-	private void registerLocalBroadcastReceiverForEpgRemote() {
-		remoteReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				Log.d(TAG + "..EpgRemote", intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY));
-				// TODO: Use the received string, after having model convert it
-				setEPGData(new EPGDataImpl(MockDataService.getMockData()));
-			}
-		};
-		LocalBroadcastManager.getInstance(this).registerReceiver(remoteReceiver, new IntentFilter(EPG_BROADCAST_REMOTE));
+	private void handleReceivedBroadcast(Intent intent) {
+		Log.d(TAG + "..ReceivedBroadcast", String.valueOf(intent.getIntExtra(SharedConstants.CODE_BUNDLE_KEY, SharedConstants.FAILED_CODE)));
+		Log.d(TAG + "..ReceivedBroadcast", intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY));
+		// TODO: Use the received string, after having model convert it
+		setAndRedrawEPGData(new EPGDataImpl(MockDataService.getMockData()));
 	}
 	
-	/** Calls 'epg.setEPGData()' and redraws its view */
-	private void setEPGData(EPGData data) {
+	private void setAndRedrawEPGData(EPGData data) {
 		epg.setEPGData(data);
 		epg.recalculateAndRedraw(false);
 	}

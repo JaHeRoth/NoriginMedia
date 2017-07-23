@@ -21,14 +21,14 @@ class AsyncReader extends AsyncTask<Void, Void, String> {
 	
 	private final Context appContext;
 	private final String broadcastName;
-	private final boolean isLocal;
-	private final String contentPath;
+	private final LocationType locationType;
+	private final String contentLocation;
 	
-	AsyncReader(Context appContext, String broadcastName, boolean isLocal, String contentPath) {
+	AsyncReader(Context appContext, String broadcastName, LocationType locationType, String contentLocation) {
 		this.appContext = appContext;
 		this.broadcastName = broadcastName;
-		this.isLocal = isLocal;
-		this.contentPath = contentPath;
+		this.locationType = locationType;
+		this.contentLocation = contentLocation;
 	}
 	
 	@Override
@@ -43,11 +43,11 @@ class AsyncReader extends AsyncTask<Void, Void, String> {
 		return "";
 	}
 	
-	/** @return A BufferedReader based on the parameters 'isLocal' and 'contentPath' from the AsyncReader-constructor */
+	/** @return A BufferedReader, based on the parameters 'locationType' and 'contentLocation' received in the AsyncReader-constructor */
 	private BufferedReader createBufferedReader() throws IOException {
-		return isLocal ?
-				ReaderCreator.localReader(appContext, contentPath) :
-				ReaderCreator.remoteReader(contentPath);
+		return locationType == LocationType.LOCAL ?
+				ReaderCreator.localReader(appContext, contentLocation) :
+				ReaderCreator.remoteReader(contentLocation);
 	}
 	
 	@Override
