@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (UnswipeableViewPager) findViewById(R.id.container);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		mViewPager.setCurrentItem(2);
 		
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(mViewPager);
