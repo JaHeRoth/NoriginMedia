@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
 	private void handleReceivedBroadcast(Intent intent) {
 		Log.d(TAG + "..ReceivedBroadcast", String.valueOf(intent.getIntExtra(SharedConstants.CODE_BUNDLE_KEY, SharedConstants.FAILED_CODE)));
 		Log.d(TAG + "..ReceivedBroadcast", intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY));
-		// TODO: Use the received string, after having model convert it
-		setAndRedrawEPGData(new EPGDataImpl(MockDataService.getMockData()));
+		// TODO: Check for identical, handle fail, write to storage, store in variable-cache
+		setAndRedrawEPGData(new EPGDataCreator(intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY)));
 	}
 	
 	private void setAndRedrawEPGData(EPGData data) {
