@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 		Log.d(TAG + "..ReceivedBroadcast", String.valueOf(intent.getIntExtra(SharedConstants.CODE_BUNDLE_KEY, SharedConstants.FAILED_CODE)));
 		Log.d(TAG + "..ReceivedBroadcast", intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY));
 		// TODO: Check for identical, handle fail, write to storage, store in variable-cache
-		setAndRedrawEPGData(new EPGDataCreator(intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY)));
+		setAndRedrawEPGData(new EPGDataCreator.fromJSONString(intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY)));
 	}
 	
 	private void setAndRedrawEPGData(EPGData data) {
