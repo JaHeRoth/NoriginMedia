@@ -54,7 +54,7 @@ public class EPGFragment extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_epg, container, false);
 		initEpg((EPG) rootView.findViewById(R.id.epg));
 		return rootView;
 	}
