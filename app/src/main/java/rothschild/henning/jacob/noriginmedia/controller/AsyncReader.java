@@ -33,7 +33,7 @@ class AsyncReader extends AsyncTask<Void, Void, String> {
 	
 	@Override
 	protected String doInBackground(Void... voids) {
-		// FIXME: Shouldn't be using the general catch (Exception e). nulls and other exception-sources should be spotted before becoming exceptions at all
+		// FIXME: Shouldn't be using the general 'catch (Exception e)'. 'nulls' and other exception-sources should be spotted before becoming exceptions at all
 		try {
 			// Closest I could get to dependency injection while running everything asynchronously
 			return StringFetcher.fromBufferedReader(createBufferedReader());
@@ -53,8 +53,8 @@ class AsyncReader extends AsyncTask<Void, Void, String> {
 	@Override
 	protected void onPostExecute(String epg) {
 		Intent intent = new Intent(broadcastName);
-		intent.putExtra(SharedConstants.RESULT_BUNDLE_NAME, epg.isEmpty() ? SharedConstants.FAILED_CODE : SharedConstants.SUCCESS_CODE);
-		intent.putExtra(SharedConstants.EPG_BUNDLE_NAME, epg);
+		intent.putExtra(SharedConstants.CODE_BUNDLE_KEY, epg.isEmpty() ? SharedConstants.FAILED_CODE : SharedConstants.SUCCESS_CODE);
+		intent.putExtra(SharedConstants.READ_BUNDLE_KEY, epg);
 		LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
 	}
 }

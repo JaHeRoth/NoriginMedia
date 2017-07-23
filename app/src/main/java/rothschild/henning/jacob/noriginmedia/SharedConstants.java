@@ -5,9 +5,12 @@ package rothschild.henning.jacob.noriginmedia;
  */
 
 public final class SharedConstants {
-	public final static String RESULT_BUNDLE_NAME = "result_code";
-	public final static String EPG_BUNDLE_NAME = "epg";
+	public final static String CODE_BUNDLE_KEY = "result_code";
+	public final static String READ_BUNDLE_KEY = "output_text";
+	/** Reading succeeded */
 	public final static int SUCCESS_CODE = 0;
+	/** Remote reading returned nothing new */
 	public final static int IDENTICAL_CODE = 1;
+	/** Reading failed */
 	public final static int FAILED_CODE = 2;
 }

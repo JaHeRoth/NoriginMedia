@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
 	// TODO: Update epg-view regularly, to represent that the time is constantly changing (right now the visual current-time-indicator is stuck until restart)
 	
 	private static final String EPG_FILE_LOCAL = "epg.txt";
-	private static final String EPG_FILE_REMOTE = "http://localhost:1337/epg";
+	// 10.0.3.2 is localhost's IP address in Genymotion emulator (10.0.2.2 in Android emulator)
+	private static final String EPG_FILE_REMOTE = "http://10.0.3.2:1337/epg"; // localhost
 	private static final String EPG_BROADCAST_LOCAL = "EPG_BROADCAST_LOCAL";
 	private static final String EPG_BROADCAST_REMOTE = "EPG_BROADCAST_REMOTE";
 	private static final String TAG = MainActivity.class.getSimpleName() + ".";
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 		localReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				Log.d(TAG + "..EpgLocal", intent.getStringExtra(SharedConstants.EPG_BUNDLE_NAME));
+				Log.d(TAG + "..EpgLocal", intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY));
 				// TODO: Use the received string, after having model convert it
 				setEPGData(new EPGDataImpl(MockDataService.getMockData()));
 			}
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 		remoteReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				Log.d(TAG + "..EpgRemote", intent.getStringExtra(SharedConstants.EPG_BUNDLE_NAME));
+				Log.d(TAG + "..EpgRemote", intent.getStringExtra(SharedConstants.READ_BUNDLE_KEY));
 				// TODO: Use the received string, after having model convert it
 				setEPGData(new EPGDataImpl(MockDataService.getMockData()));
 			}
