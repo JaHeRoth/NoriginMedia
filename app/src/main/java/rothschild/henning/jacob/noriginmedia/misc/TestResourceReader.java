@@ -1,4 +1,4 @@
-package rothschild.henning.jacob.noriginmedia;
+package rothschild.henning.jacob.noriginmedia.misc;
 
 import org.json.JSONException;
 import org.json.JSONObject;

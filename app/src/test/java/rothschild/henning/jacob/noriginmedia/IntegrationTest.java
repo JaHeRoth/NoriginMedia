@@ -2,6 +2,7 @@ package rothschild.henning.jacob.noriginmedia;
 
 import org.junit.Test;
 
+import rothschild.henning.jacob.noriginmedia.misc.TestResourceReader;
 import rothschild.henning.jacob.noriginmedia.model.Fetcher;
 
 import static junit.framework.Assert.assertEquals;

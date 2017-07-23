@@ -7,6 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import rothschild.henning.jacob.noriginmedia.misc.TestResourceReader;
 import rothschild.henning.jacob.noriginmedia.model.Fetcher;
 
 import static junit.framework.Assert.assertEquals;
