@@ -21,7 +21,8 @@ public class InstrumentedIntegrationTest {
     
     private TestResourceReader epgReader = new TestResourceReader(TestResourceReader.EPG_LOCAL);
     
-    /** Asserts that Fetcher.Remote(...) returns correct content from EPG */
+    /** Asserts that Fetcher.Remote(...) returns correct content from EPG.
+     * Until cache has been established, this should fail. */
     @Test
     public void fetchLocal() throws Exception {
         // Context of the app under test.
