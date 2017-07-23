@@ -7,7 +7,6 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import rothschild.henning.jacob.noriginmedia.misc.TestResourceReader;
 import rothschild.henning.jacob.noriginmedia.model.Fetcher;
 
 import static junit.framework.Assert.assertEquals;
@@ -20,7 +19,7 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class InstrumentedIntegrationTest {
     
-    private TestResourceReader epgReader = new TestResourceReader(TestResourceReader.EPG_LOCAL);
+    private TestResourceReader testEPGReader = new TestResourceReader(TestResourceReader.EPG_LOCAL);
     
     /** Asserts that Fetcher.Remote(...) returns correct content from EPG.
      * Until cache has been established, this should fail. */
@@ -29,6 +28,6 @@ public class InstrumentedIntegrationTest {
         // Context of the app under test.
         Context context = InstrumentationRegistry.getTargetContext();
         // NOTE: .toString() must be called. It seems like '==' is called otherwise
-        assertEquals(Fetcher.local(context, TestResourceReader.EPG_LOCAL).toString(), epgReader.jsonRead().toString());
+        assertEquals(Fetcher.local(context, TestResourceReader.EPG_LOCAL).toString(), testEPGReader.jsonRead().toString());
     }
 }

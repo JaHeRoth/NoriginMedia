@@ -13,7 +13,7 @@ import java.net.URL;
  * Created by Jacob H. Rothschild on 22.07.2017.
  */
 
-public class BufferedReaderCreator {
+public class ReaderCreator {
 	
 	/** @return A BufferedReader for fetching the content of the url 'urlString' */
 	public static BufferedReader remoteReader(String urlString) throws IOException {

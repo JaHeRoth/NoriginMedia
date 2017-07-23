@@ -1,7 +1,6 @@
 package rothschild.henning.jacob.noriginmedia.model;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,11 +9,11 @@ import java.io.IOException;
  * Created by Jacob H. Rothschild on 22.07.2017.
  */
 
-public class JSONFetcher {
+public class StringFetcher {
 	
 	/** @return All the content from 'reader', in one, large String */
-	public static JSONObject fromBufferedReader(BufferedReader reader) throws JSONException, IOException {
-		return new JSONObject(bufferedReaderToContentString(reader));
+	public static String fromBufferedReader(BufferedReader reader) throws JSONException, IOException {
+		return bufferedReaderToContentString(reader);
 	}
 	
 	/** @return All the content from 'reader', in one, large String */

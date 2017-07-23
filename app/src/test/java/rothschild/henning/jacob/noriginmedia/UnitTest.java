@@ -1,11 +1,9 @@
 package rothschild.henning.jacob.noriginmedia;
 
-import org.json.JSONObject;
 import org.junit.Test;
 
-import rothschild.henning.jacob.noriginmedia.misc.TestResourceReader;
-import rothschild.henning.jacob.noriginmedia.model.BufferedReaderCreator;
-import rothschild.henning.jacob.noriginmedia.model.JSONFetcher;
+import rothschild.henning.jacob.noriginmedia.model.ReaderCreator;
+import rothschild.henning.jacob.noriginmedia.model.StringFetcher;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -17,29 +15,29 @@ import static org.junit.Assert.assertNotEquals;
  */
 public class UnitTest {
 	
-	private TestResourceReader epgReader = new TestResourceReader(TestResourceReader.EPG_LOCAL);
+	private TestResourceReader testEPGReader = new TestResourceReader(TestResourceReader.EPG_LOCAL);
 	
-	/** Asserts that JSONFetcher.fromBufferedReader(...) returns correct content */
+	/** Asserts that StringFetcher.fromBufferedReader(...) returns correct content */
 	@Test
-	public void jsonFetcher_something() throws Exception {
-		assertNotEquals(JSONFetcher.fromBufferedReader(epgReader.filenameToBufferedReader()), null);
-		assertNotEquals(JSONFetcher.fromBufferedReader(epgReader.filenameToBufferedReader()), "");
+	public void stringFetcher_something() throws Exception {
+		assertNotEquals(StringFetcher.fromBufferedReader(testEPGReader.filenameToBufferedReader()), null);
+		assertNotEquals(StringFetcher.fromBufferedReader(testEPGReader.filenameToBufferedReader()), "");
 	}
 	
-	/** Asserts that JSONFetcher.fromBufferedReader(...) returns correct content */
+	/** Asserts that StringFetcher.fromBufferedReader(...) returns correct content */
 	@Test
-	public void jsonFetcher_correct() throws Exception {
+	public void stringFetcher_correct() throws Exception {
 		// NOTE: .toString() must be called. It seems like otherwise == is called
-		JSONObject origin = JSONFetcher.fromBufferedReader(epgReader.filenameToBufferedReader());
-		JSONObject comparison = epgReader.jsonRead();
-		assertEquals("\n" + origin.toString() + "\n" + comparison.toString() + "\n", origin.toString(), comparison.toString());
+		String origin = StringFetcher.fromBufferedReader(testEPGReader.filenameToBufferedReader());
+		String comparison = testEPGReader.stringRead();
+		assertEquals("\n" + origin + "\n" + comparison + "\n", origin, comparison);
 	}
 	
-	/** Asserts that BufferedReaderCreator.remoteReader(...) returns a working BufferedReader.
+	/** Asserts that ReaderCreator.remoteReader(...) returns a working BufferedReader.
 	 * When server is off, this should fail. */
 	@Test
-	public void remoteReader() throws Exception {
-		assertEquals(epgReader.bufferedReaderToContentString(BufferedReaderCreator.remoteReader(TestResourceReader.EPG_REMOTE)), epgReader.stringRead());
+	public void remoteReaderCreator() throws Exception {
+		assertEquals(testEPGReader.bufferedReaderToContentString(ReaderCreator.remoteReader(TestResourceReader.EPG_REMOTE)), testEPGReader.stringRead());
 	}
 	
 }
