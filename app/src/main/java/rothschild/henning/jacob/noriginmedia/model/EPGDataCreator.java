@@ -25,9 +25,6 @@ import rothschild.henning.jacob.epg.misc.EPGDataImpl;
 
 public class EPGDataCreator {
 	
-	// FIXME: Channel 5 is missing
-	// FIXME: No EPGEvents are showing
-	
 	public static EPGData fromJSONString(String jsonString, SimpleDateFormat dateFormat) throws JSONException, ParseException {
 		return new EPGDataImpl(jsonToEPGHashMap(new JSONObject(jsonString).getJSONArray("channels"), dateFormat));
 	}
@@ -39,6 +36,14 @@ public class EPGDataCreator {
 			epgMap.put(extractEPGChannel(channel), extractEPGEvents(channel, dateFormat));
 		}
 		Log.i("EPGDataCreator", "TimeAdjustment: " + hackyTimeRecenter());
+		return returnWithDummyChannelAtEnd(epgMap);
+	}
+	
+	/** There is a very strange bug in the EPG-library, which results in the bottom-most channel not being displayed at all. Therefore, an empty dummy-channel is added here. This is obviously NOT an ideal solution. Had I not been pressed on time, I would probably have edited the library, but that is not the case. Thus, this is the ugly band-aid solution that will be used for now. */
+	private static LinkedHashMap<EPGChannel, List<EPGEvent>> returnWithDummyChannelAtEnd(LinkedHashMap<EPGChannel, List<EPGEvent>> epgMap) {
+		ArrayList<EPGEvent> dummyEventList = new ArrayList<>();
+		dummyEventList.add(new EPGEvent(0, 0, " "));
+		epgMap.put(new EPGChannel("dummy", " ", "https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"), dummyEventList);
 		return epgMap;
 	}
 	
