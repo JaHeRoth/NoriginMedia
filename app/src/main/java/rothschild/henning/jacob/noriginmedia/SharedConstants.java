@@ -7,10 +7,10 @@ package rothschild.henning.jacob.noriginmedia;
 public final class SharedConstants {
 	public final static String CODE_BUNDLE_KEY = "result_code";
 	public final static String READ_BUNDLE_KEY = "output_text";
+	public static final String CACHE_BUNDLE_KEY = "cache_key";
+	public static final String DESTINATION_BUNDLE_KEY = "destination_filename";
 	/** Reading succeeded */
 	public final static int SUCCESS_CODE = 0;
-	/** Remote reading returned nothing new */
-	public final static int IDENTICAL_CODE = 1;
 	/** Reading failed */
-	public final static int FAILED_CODE = 2;
+	public final static int FAILED_CODE = 1;
 }

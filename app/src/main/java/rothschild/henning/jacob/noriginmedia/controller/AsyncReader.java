@@ -23,12 +23,16 @@ class AsyncReader extends AsyncTask<Void, Void, String> {
 	private final String broadcastName;
 	private final LocationType locationType;
 	private final String contentLocation;
+	private final String cacheKey;
+	private final String destination;
 	
-	AsyncReader(Context appContext, String broadcastName, LocationType locationType, String contentLocation) {
+	AsyncReader(Context appContext, String broadcastName, LocationType locationType, String contentLocation, String cacheKey, String destination) {
 		this.appContext = appContext;
 		this.broadcastName = broadcastName;
 		this.locationType = locationType;
 		this.contentLocation = contentLocation;
+		this.cacheKey = cacheKey;
+		this.destination = destination;
 	}
 	
 	@Override
@@ -55,6 +59,8 @@ class AsyncReader extends AsyncTask<Void, Void, String> {
 		Intent intent = new Intent(broadcastName);
 		intent.putExtra(SharedConstants.CODE_BUNDLE_KEY, epg.isEmpty() ? SharedConstants.FAILED_CODE : SharedConstants.SUCCESS_CODE);
 		intent.putExtra(SharedConstants.READ_BUNDLE_KEY, epg);
+		intent.putExtra(SharedConstants.CACHE_BUNDLE_KEY, cacheKey);
+		intent.putExtra(SharedConstants.DESTINATION_BUNDLE_KEY, destination);
 		LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
 	}
 }
