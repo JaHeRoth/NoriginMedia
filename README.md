@@ -2,9 +2,9 @@
 
 ## Overview
 
-As part of the recruitment process at NoriginMedia I was asked to complete the native part of the following task: https://github.com/NoriginMedia/candidate-tester/
+As part of the recruitment process at NoriginMedia, I was asked to do the native part of their [candidate-tester](https://github.com/NoriginMedia/candidate-tester/).
 
-This project was created over a weekend (21 - 23 July), to complete the challenge. It was made in Android Studio, and displays its data with help from the GitHub repo https://github.com/korre/android-tv-epg
+This project is my solution to that challenge, and was created over the weekend of 21 July to 23 July. It was made in Android Studio, and displays its data with help from the GitHub repo [android-tv-epg](https://github.com/korre/android-tv-epg).
 
 ## Running
 
@@ -14,7 +14,7 @@ There are two alternative ways of running this Android-app:
 
 WARNING, the following might hinder the application from functioning correctly:
 1. During development, Genymotion was used as the runtime-environment. In Genymotion, `localhost` is accessed through `10.0.3.2` Thus, it might be necessary to replace the constant `EPG_FILE_REMOTE` in `app/src/main/java/rothschild/henning/jacob/noriginmedia/controller/EPGFragment.java` when running the app in another environment.
-2. All the epg-data I was provided had start and end dates on 18 March. For the sake of demonstration, all dates are skewed to be in the current day. As the offset is based on the time between the current day and 18.03.2017, this will not work as inteded if the dates are changed. To eliminate this functionality, replace the code in `hackyTimeRecenter()` in `app/src/main/java/rothschild/henning/jacob/noriginmedia/model/EPGDataCreator.java` with `return 0`
+2. All the epg-data I was provided had start and end dates on 18 March. For the sake of demonstration, all dates are skewed to be in the current day. As the offset is based on the time between the current day and *18.03.2017*, this will not work as inteded if the dates are changed. To eliminate this functionality, replace the code in `hackyTimeRecenter()` in `app/src/main/java/rothschild/henning/jacob/noriginmedia/model/EPGDataCreator.java` with `return 0`
 
 ## Philosophy
 
