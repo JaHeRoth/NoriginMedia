@@ -10,10 +10,12 @@ This project is my solution to that challenge, and was created over the weekend 
 ## Running
 
 There are two alternative ways of running this Android-app:
+
  1. Download and install the .apk file: `app/build/outputs/apk/app-debug.apk`
  2. Clone the repo, open it in Android Studio, and hit run
 
 WARNING, the following might hinder the application from functioning correctly:
+
  1. During development, Genymotion was used as the runtime-environment. In Genymotion, `localhost` is accessed through `10.0.3.2` Thus, it might be necessary to replace the constant `EPG_FILE_REMOTE` in `app/src/main/java/rothschild/henning/jacob/noriginmedia/controller/EPGFragment.java` when running the app in another environment.
  2. All the epg-data I was provided had start and end dates on 18 March. For the sake of demonstration, all dates are skewed to be in the current day. As the offset is based on the time between the current day and *18.03.2017*, this will not work as inteded if the dates are changed. To eliminate this functionality, replace the code in `hackyTimeRecenter()` in `app/src/main/java/rothschild/henning/jacob/noriginmedia/model/EPGDataCreator.java` with `return 0`
 
@@ -24,6 +26,7 @@ As time was limited I had to focus my efforts. I believe my various apps show I 
 ## Problems
 
 Due to time-constraints, the following problems were not prioritized, and thus went unsolved:
+
  - Limited testing: At first, everything was unit- and integration-tested, but it took too much time to keep up. Thus, test-coverage is currently low.
  - Exception-throwing: I am no fan of unnecessary exception-throwing. Exessive exception-throwing is slow, and not the intended way of doing things. Currently the data-fetchers perform no checks before performing actions that might throw exceptions. Thus, exceptions are thrown unnecessarily. These exceptions are later caught, so no real harm is done to the user, but this excessive try-catch structure is neither fast nor elegant.
  - Fetch-retry: If the app fails at fetching data during launch, it will not retry until restart. A *BroadcastReceiver* could be set up to notice when the user turns on their internet, and fetch data from server if a missing network-connection caused the last attempt to fail.
