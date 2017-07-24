@@ -3,11 +3,13 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="rothschild.henning.jacob.tabs.MainActivity">
     <item
-        android:id="@+id/action_profile"
-        android:title="@string/action_profile"
+        android:id="@+id/action_search"
+        android:icon="@drawable/search"
+        android:title="@string/action_search"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_search"
-        android:title="@string/action_search"
+        android:id="@+id/action_profile"
+        android:title="@string/action_profile"
+        android:icon="@drawable/user"
         app:showAsAction="ifRoom"/>
 </menu>

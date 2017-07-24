@@ -28,9 +28,4 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 		// Show 5 pages
 		return 5;
 	}
-	
-	@Override
-	public CharSequence getPageTitle(int position) {
-		return "SECTION " + (position + 1);
-	}
 }

@@ -2,8 +2,6 @@ package rothschild.henning.jacob.noriginmedia.controller;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -18,20 +16,7 @@ import rothschild.henning.jacob.noriginmedia.view.UnswipeableViewPager;
  */
 public class MainActivity extends AppCompatActivity {
 	
-	/**
-	 * The {@link android.support.v4.view.PagerAdapter} that will provide
-	 * fragments for each of the sections. We use a
-	 * {@link FragmentPagerAdapter} derivative, which will keep every
-	 * loaded fragment in memory. If this becomes too memory intensive, it
-	 * may be best to switch to a
-	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-	 */
-	private SectionsPagerAdapter mSectionsPagerAdapter;
-	
-	/**
-	 * The {@link ViewPager} that will host the section contents.
-	 */
-	private UnswipeableViewPager mViewPager;
+	private static final int[] TAB_ICONS = {R.drawable.home, R.drawable.video, R.drawable.list, R.drawable.replay, R.drawable.read};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +27,32 @@ public class MainActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+		/*
+	  The {@link android.support.v4.view.PagerAdapter} that will provide
+	  fragments for each of the sections. We use a
+	  {@link FragmentPagerAdapter} derivative, which will keep every
+	  loaded fragment in memory. If this becomes too memory intensive, it
+	  may be best to switch to a
+	  {@link android.support.v4.app.FragmentStatePagerAdapter}.
+	 */
+		SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 		
-		// Set up the ViewPager with the sections adapter.
-		mViewPager = (UnswipeableViewPager) findViewById(R.id.container);
+		// Set up the TabLayout with the UnswipeableViewPager with the sections adapter.
+		/*
+	  The {@link ViewPager} that will host the section contents.
+	 */
+		UnswipeableViewPager mViewPager = (UnswipeableViewPager) findViewById(R.id.container);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		mViewPager.setCurrentItem(2);
-		
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(mViewPager);
+		setTabIcons(tabLayout);
+	}
+	
+	private void setTabIcons(TabLayout tabLayout) {
+		for (int tabN = 0; tabN < tabLayout.getTabCount(); tabN++) {
+			tabLayout.getTabAt(tabN).setIcon(TAB_ICONS[tabN]);
+		}
 	}
 	
 	@Override
