@@ -28,13 +28,13 @@ As time was limited I had to focus my efforts. I believe my various apps show I 
 Due to time-constraints, the following problems were not prioritized, and thus went unsolved:
 
  - Limited testing: At first, everything was unit- and integration-tested, but it took too much time to keep up. Thus, test-coverage is currently low.
- - Exception-throwing: I am no fan of unnecessary exception-throwing. Exessive exception-throwing is slow, and not the intended way of doing things. Currently the data-fetchers perform no checks before performing actions that might throw exceptions. Thus, exceptions are thrown unnecessarily. These exceptions are later caught, so no real harm is done to the user, but this excessive try-catch structure is neither fast nor elegant.
+ - Exception-throwing: I am no fan of unnecessary exception-throwing. Excessive exception-throwing is slow, and not the intended way of doing things. Currently the data-fetchers perform no checks before performing actions that might throw exceptions. Thus, exceptions are thrown unnecessarily. These exceptions are later caught, so no real harm is done to the user, but this excessive try-catch structure is neither fast nor elegant.
  - Fetch-retry: If the app fails at fetching data during launch, it will not retry until restart. A *BroadcastReceiver* could be set up to notice when the user turns on their internet, and fetch data from server if a missing network-connection caused the last attempt to fail.
  - Fetch on changes: Currently, the app only fetches server-data on start/restart, but ideally it should fetch whenever the servers data changes. I have already implemented this functionality in my previous app SKAMvarsler, so code could easily be copy-pasted to the current project. It is simply a matter of running a *Google App Engine servlet* regularly from a *cron-job*. This servlet will fetch data from the server, compare it with previously fetched data, and notify the app through *Firebase Cloud Messaging* if the servers data has changed. If the app is in the foreground when it is notified, it will fetch this new data from the epg-server. This solution is free and puts no excessive load on users' batteries or networks.
  - Toasts: The user should see a toast whenever the server-data is not available, so they know the data displayed is possibly outdated. 
- - Unswipeable ViewPager: The swipe-functionality of the normal *ViewPager* overpowers and breaks the pan/scroll functionality of the epg-view. Thus, it was necessary to remove this swipe-functionality from the epg-tab. It seems possible and preffered to make only the epg-tab unswipeable, while the other tabs stay swipeable.
+ - Unswipeable ViewPager: The swipe-functionality of the normal *ViewPager* overpowers and breaks the pan/scroll functionality of the epg-view. Thus, it was necessary to remove this swipe-functionality from the epg-tab. It seems possible and preferred to make only the epg-tab unswipeable, while the other tabs stay swipeable.
  - Drawable resolution: Only one drawable resolution is provided, and it does not fit any of the normally requested resolutions.
- - Library limitations: The epg-library I decided to use had certain limitations and problems. Some of these were solved with bandaid solutions, while others were ignored. The problems discovered were:
+ - Library limitations: The epg-library I decided to use had certain limitations and problems. Some of these were solved with band-aid solutions, while others were ignored. The problems discovered were:
  - Memory leak in example code (fixed)
  - Miscalculation of own height (band-aid)
  - Downloaded images are not cached (ignored)
@@ -47,6 +47,7 @@ As I use *Dropbox* and was the only person working on this project, I saw no pur
 
 ## Author
 
-Jacob Henning Rothschild
-Jacob.R.Developer@gmail.com
-linkedin.com/in/jacob-h-rothschild
+| Jacob Henning Rothschild           |
+| ---------------------------------- |
+| Jacob.R.Developer@gmail.com        |
+| linkedin.com/in/jacob-h-rothschild |
