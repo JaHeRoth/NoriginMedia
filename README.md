@@ -49,5 +49,5 @@ As I use *Dropbox* and was the only person working on this project, I saw no pur
 
 | Jacob Henning Rothschild           |
 | ---------------------------------- |
-| Jacob.R.Developer@gmail.com        |
 | linkedin.com/in/jacob-h-rothschild |
+| Jacob.R.Developer@gmail.com        |
